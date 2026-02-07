@@ -164,15 +164,15 @@
         </div>
         <div class="stat-item">
           <div class="stat-number"><%= promises.filter(p => p.status === 'ยังไม่เริ่ม').length %></div>
-          <div class="stat-label">Not Started</div>
+          <div class="stat-label">ยังไม่เริ่ม</div>
         </div>
         <div class="stat-item">
           <div class="stat-number"><%= promises.filter(p => p.status === 'กำลังดำเนินการ').length %></div>
-          <div class="stat-label">In Progress</div>
+          <div class="stat-label">กำลังดำเนินการ</div>
         </div>
         <div class="stat-item">
           <div class="stat-number"><%= promises.filter(p => p.status === 'เงียบหาย').length %></div>
-          <div class="stat-label">Silent</div>
+          <div class="stat-label">เงียบหาย</div>
         </div>
       </div>
     </div>
