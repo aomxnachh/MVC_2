@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= politician.name %> - Promise Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eee;
+    }
+    .navbar {
+      background: #333;
+      color: white;
+      padding: 10px;
+    }
+    .navbar h1 {
+      font-size: 18px;
+      display: inline;
+    }
+    .navbar-right {
+      display: inline;
+      margin-left: 15px;
+    }
+    .navbar a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 10px auto;
+      padding: 10px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #0066cc;
+      text-decoration: none;
+    }
+    .politician-header {
+      background: #f9f9f9;
+      padding: 15px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+    .politician-name {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .politician-info {
+      color: #666;
+      margin: 5px 0;
+    }
+    .section-title {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .promise-card {
+      background: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+    }
+    .promise-title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .promise-description {
+      color: #333;
+      line-height: 1.4;
+      margin: 10px 0;
+    }
+    .promise-footer {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #ccc;
+    }
+    .status-badge {
+      padding: 5px 10px;
+      border: 1px solid #999;
+      font-size: 13px;
+      display: inline-block;
+    }
+    .status-ยังไม่เริ่ม {
+      background: #fff3cd;
+      color: #856404;
+    }
+    .status-กำลังดำเนินการ {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    .status-เงียบหาย {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .date {
+      color: #999;
+      font-size: 13px;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 15px;
+      background: #0066cc;
+      color: white;
+      text-decoration: none;
+      border: none;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 10px;
+      color: #999;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+    }
+    .stat-item {
+      background: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+      display: inline-block;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+    .stat-number {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+    .stat-label {
+      color: #666;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Politician Promise Tracker</h1>
+    <div class="navbar-right">
+      <span>User: <%= user.username %></span>
+      <a href="/promises">All Promises</a>
+      <a href="/politicians">Politicians</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="/politicians" class="back-link">← Back to Politicians List</a>
+
+    <div class="politician-header">
+      <div class="politician-name"><%= politician.name %></div>
+      <div class="politician-info">ID: <%= politician.id %></div>
+      <div class="politician-info">Party: <%= politician.party %></div>
+      
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-number"><%= promises.length %></div>
+          <div class="stat-label">Total Promises</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number"><%= promises.filter(p => p.status === 'ยังไม่เริ่ม').length %></div>
+          <div class="stat-label">Not Started</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number"><%= promises.filter(p => p.status === 'กำลังดำเนินการ').length %></div>
+          <div class="stat-label">In Progress</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number"><%= promises.filter(p => p.status === 'เงียบหาย').length %></div>
+          <div class="stat-label">Silent</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">All Promises by this Politician</h2>
+
+    <% if (promises.length === 0) { %>
+      <div class="empty-state">
+        <p>This politician has no promises yet</p>
+      </div>
+    <% } else { %>
+      <% promises.forEach(promise => { %>
+        <div class="promise-card">
+          <div class="promise-header">
+            <div class="promise-title">Promise #<%= promise.id %></div>
+            <span class="status-badge status-<%= promise.status %>">
+              <%= promise.status %>
+            </span>
+          </div>
+          
+          <div class="promise-description">
+            <%= promise.description %>
+          </div>
+          
+          <div class="promise-footer">
+            <span class="date">Announced: <%= promise.announcedDate %></span>
+            <a href="/promises/<%= promise.id %>" class="btn">View Details</a>
+          </div>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+</body>
+</html>

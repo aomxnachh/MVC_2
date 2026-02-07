@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politicians - Promise Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eee;
+    }
+    .navbar {
+      background: #333;
+      color: white;
+      padding: 10px;
+    }
+    .navbar h1 {
+      font-size: 18px;
+      display: inline;
+    }
+    .navbar-right {
+      display: inline;
+      margin-left: 15px;
+    }
+    .navbar a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 10px auto;
+      padding: 10px;
+    }
+    h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .politician-card {
+      background: #f9f9f9;
+      padding: 15px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .politician-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .politician-id {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 5px;
+    }
+    .politician-party {
+      color: #0066cc;
+      margin-bottom: 10px;
+    }
+    .view-promises {
+      display: inline-block;
+      padding: 8px 15px;
+      background: #0066cc;
+      color: white;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 10px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Politician Promise Tracker</h1>
+    <div class="navbar-right">
+      <span>User: <%= user.username %></span>
+      <a href="/promises">All Promises</a>
+      <a href="/politicians">Politicians</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>All Politicians</h2>
+
+    <% if (politicians.length === 0) { %>
+      <div class="empty-state">
+        <p>No politicians in the system yet</p>
+      </div>
+    <% } else { %>
+      <div class="politician-grid">
+        <% politicians.forEach(politician => { %>
+          <a href="/politicians/<%= politician.id %>" class="politician-card">
+            <div class="politician-name"><%= politician.name %></div>
+            <div class="politician-id">ID: <%= politician.id %></div>
+            <div class="politician-party"><%= politician.party %></div>
+            <span class="view-promises">View Promises</span>
+          </a>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

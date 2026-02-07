@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Politician Promise Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eee;
+      padding: 50px;
+    }
+    .login-container {
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin-bottom: 5px;
+    }
+    .subtitle {
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #999;
+    }
+    button {
+      padding: 10px 20px;
+      background: #0066cc;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .error {
+      background: #ffcccc;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #cc0000;
+    }
+    .demo-info {
+      margin-top: 20px;
+      padding: 10px;
+      background: #ffffcc;
+      border: 1px solid #cccc00;
+      font-size: 12px;
+    }
+    .demo-info h3 {
+      margin: 0 0 10px 0;
+    }
+    .demo-info p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Politician Promise Tracker</h1>
+    
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+    
+    <form method="POST" action="/login">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="demo-info">
+      <h3>Demo Accounts:</h3>
+      <p>Admin: <strong>admin</strong> / <strong>admin123</strong></p>
+      <p>Politicians:</p>
+      <p>- <strong>monkolkiat</strong> / <strong>pass123</strong> (มงคลเกียรติ เจริญทรัพย์)</p>
+      <p>- <strong>somying</strong> / <strong>pass123</strong> (สมหญิง รักชาติ)</p>
+      <p>- <strong>somchai</strong> / <strong>pass123</strong> (สมชาย เสียเกียรติ)</p>
+      <p>- <strong>phiangdin</strong> / <strong>pass123</strong> (เพียงดิน สุจริต)</p>
+      <p>- <strong>anucha</strong> / <strong>pass123</strong> (อนุชา ดำรงค์)</p>
+    </div>
+  </div>
+</body>
+</html>

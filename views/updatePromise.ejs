@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Progress - Promise Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eee;
+    }
+    .navbar {
+      background: #333;
+      color: white;
+      padding: 10px;
+    }
+    .navbar h1 {
+      font-size: 18px;
+      display: inline;
+    }
+    .navbar-right {
+      display: inline;
+      margin-left: 15px;
+    }
+    .navbar a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+    }
+    .container {
+      max-width: 800px;
+      margin: 10px auto;
+      padding: 10px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #0066cc;
+      text-decoration: none;
+    }
+    .form-container {
+      background: #f9f9f9;
+      padding: 15px;
+      border: 1px solid #ccc;
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .promise-info {
+      background: white;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-left: 3px solid #333;
+    }
+    .promise-info p {
+      margin: 5px 0;
+      color: #333;
+    }
+    .promise-info strong {
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+      font-weight: bold;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #999;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      resize: vertical;
+      min-height: 120px;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #999;
+      font-size: 14px;
+    }
+    .btn {
+      padding: 10px 15px;
+      border: none;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      margin-right: 5px;
+      margin-top: 10px;
+    }
+    .btn-primary {
+      background: #0066cc;
+      color: white;
+    }
+    .btn-cancel {
+      background: #666;
+      color: white;
+    }
+    .status-badge {
+      padding: 5px 10px;
+      border: 1px solid #999;
+      font-size: 13px;
+      display: inline-block;
+    }
+    .status-ยังไม่เริ่ม {
+      background: #fff3cd;
+      color: #856404;
+    }
+    .status-กำลังดำเนินการ {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    .status-เงียบหาย {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Politician Promise Tracker</h1>
+    <div class="navbar-right">
+      <span>User: <%= user.username %></span>
+      <a href="/promises">All Promises</a>
+      <a href="/politicians">Politicians</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="/promises/<%= promise.id %>" class="back-link">← Back to Details</a>
+
+    <div class="form-container">
+      <h2>Update Promise Progress</h2>
+
+      <div class="promise-info">
+        <p><strong>Promise #<%= promise.id %>:</strong> <%= promise.description %></p>
+        <p><strong>Politician:</strong> <%= politician ? politician.name : 'ไม่ทราบชื่อ' %> (<%= politician ? politician.party : 'ไม่ทราบพรรค' %>)</p>
+        <p><strong>Current Status:</strong> <span class="status-badge status-<%= promise.status %>"><%= promise.status %></span></p>
+      </div>
+
+      <form method="POST" action="/promises/<%= promise.id %>/update">
+        <div class="form-group">
+          <label for="description">Progress Details: *</label>
+          <textarea 
+            id="description" 
+            name="description" 
+            required
+            placeholder="Enter progress update details, e.g., meetings held, implementation started, issues encountered, etc."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="status">Change Promise Status (optional):</label>
+          <select id="status" name="status">
+            <option value="<%= promise.status %>" selected>Keep Current Status (<%= promise.status %>)</option>
+            <option value="ยังไม่เริ่ม">ยังไม่เริ่ม</option>
+            <option value="กำลังดำเนินการ">กำลังดำเนินการ</option>
+            <option value="เงียบหาย">เงียบหาย</option>
+          </select>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">
+            Save Update
+          </button>
+          <a href="/promises/<%= promise.id %>" class="btn btn-cancel">
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
